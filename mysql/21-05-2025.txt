@@ -1,0 +1,87 @@
+use lokesh;
+show tables;
+select * from maths;
+select * from maths where marks between 55 and 70;
+select * from maths where marks not between 55 and 72;
+select * from maths where marks between 55 and 70 and id in (102,103);
+select * from maths where marks between 60 and 70 and id not in (102,103);
+
+select sum(marks) as total from maths;
+select sum(marks) as total from maths where marks>60;
+select max(marks) as top from maths;
+select max(marks) as top from maths where marks<60;
+select min(marks) as least from maths;
+select count(marks) from maths;
+select avg(marks) from maths;
+select avg(marks) from maths where marks>60;
+
+select * from worker;
+select distinct(department) from worker;
+
+CREATE TABLE Worker1 (
+	WORKER_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	FIRST_NAME CHAR(25),
+	LAST_NAME CHAR(25),
+	SALARY INT(15),
+	JOINING_DATE DATETIME,
+	DEPARTMENT CHAR(25)
+);
+insert into worker1 (worker_id,first_name,last_name,salary,joining_date,department)values
+(1,'lokesh','maan',400000,'2020-05-22','HR'),
+(2,'aman','rathore',50000,'2017-03-11','Admin'),
+(3,'rahul','vinod',40000,'2013-03-22','account'),
+(4,'harshal','kulkarni',60000,'2019-08-19','HR');
+
+select department from worker
+union 
+select department from worker1;
+
+select department from worker
+union all
+select department from worker1;
+
+select first_name,last_name from worker where department='hr'
+union
+select first_name,last_name from worker1 where department='hr';
+
+Select first_name ,salary,
+case
+    when salary>300000 THEN "Rich people"
+    when salary <=300000 && salary>=100000 THEN "Middle Class"
+    when salary <=100000  then "Poor Cass"
+    else "Data not found"
+end
+as Status
+from worker;
+
+select * from maths;
+select fname,
+case
+when marks > 90 then 'A'
+when marks > 80 and marks < 90 then 'B'
+when marks > 70 and marks < 80 then 'c'
+when marks > 50 and marks < 70 then 'D'
+else 'F'
+end 
+as grades from maths;
+
+select first_name,salary from worker where salary>200000 order by salary;
+select first_name,salary from worker where salary>200000 order by salary desc;
+
+select first_name,last_name from worker order by first_name asc ,last_name desc;
+
+select first_name from worker where first_name like 'a%';
+select first_name from worker where first_name like '%l';
+select * from worker where first_name like '_i%';
+select * from worker where first_name like 'vishal';
+select * from worker;
+select * from worker where first_name like '%i_a' or first_name like '%l';
+
+create or replace view hr as select * from worker where department='hr';
+create or replace view admin as select * from worker where department='admin';
+create or replace view account as select * from worker where department='account';
+select * from admin;
+select * from hr;
+drop view account;
+select * from account;
+select first_name from admin where salary>100000;

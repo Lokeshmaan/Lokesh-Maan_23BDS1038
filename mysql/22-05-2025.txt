@@ -1,0 +1,53 @@
+use lokesh;
+select * from worker;
+select max(department) from worker;
+select department,sum(salary) as sume from worker
+group by department order by sume desc
+ limit 1;
+ 
+ SELECT department, SUM(salary)
+FROM worker
+GROUP BY department
+ORDER BY SUM(salary) DESC
+LIMIT 1 OFFSET 2;
+
+select department,sum(salary)
+from worker
+group by department
+having sum(salary)>300000
+order by sum(salary) desc
+limit 1 offset 1;
+
+select first_name,salary from worker where salary=(select max(salary) from worker);
+select * from worker1;
+select avg(salary) from worker1;
+select max(salary),department from worker group by department;
+select first_name,salary from worker where salary>(select avg(salary) from worker1);
+select first_name,department,salary from worker
+ where salary in (select max(salary) from worker group by department);
+ 
+ create table student(
+s_id int,
+s_name varchar(25)
+);
+insert into student values (101,'jayanth'),(102,'karthik'),(103,'Praveen'),(105,'mahesh'),(106,'Arun');
+select * from student;
+
+create table address(
+s_id int,
+s_address varchar(25));
+insert into address values (101,'coimbatore'),(104,'chennai'),(105,'pune');
+
+select * from address a cross join student s;
+
+select * from student s inner join address a
+where s.s_id=a.s_id;
+
+select * from student s left outer join address a on s.s_id=a.s_id;
+
+select * from student s right outer join address a on s.s_id=a.s_id;
+
+select * from worker;
+
+select salary from worker 
+where (select count(distinct salary) from worker w1 where w1.salary>worker.salary)=4;
